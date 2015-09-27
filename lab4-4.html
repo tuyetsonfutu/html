@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Design T-shirt</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="lab4-4.css"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+</head>
+<style type="text/css">
+  body{
+    width: 1000px;
+    height: 600px;
+    margin: 0px auto;
+  }
+  div.head{
+    width: 850px;
+    height: 80px;
+  }
+  div.head h1{
+    color:#c30;
+    float: left;
+    margin-left: 20px;
+  }
+  div.head h2{
+    color: #0f0;
+    float: right;
+    display: inline;
+  }
+  #img-T-shirt{
+    width: 500px;
+    height: 500px;
+    margin:auto;
+  }
+  .button{
+    display: none;
+  }
+  #addtext{
+    float: left;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    width: 120px;
+    background-color: #E3E4FA;
+  }
+  #addpicture{
+    float: right;
+    margin-right: 25px;
+    font-size: 20px;
+    width: 120px;
+    background-color: #E3E4FA;
+  }
+  textarea{
+    width: 280px;
+    height: 60px;
+  }
+  #textok,#pictureok{
+    width: 80px;
+    float: right;
+    margin-right: 14px;
+    margin-top: 5px;
+    background-color: #E3E4FA;
+  }
+  div#T-shirt{
+    width: 500px;
+    height: 500px;
+    float: left;
+    border:dashed 2px #810541;
+    padding: 20px 20px 10px 20px;
+  }
+
+  div#design{
+    width: 300px;
+    height: 500px;
+    display: block;
+    float: left;
+    background-color: #EEE9BF;
+    margin-left: 20px;
+    border:dashed 2px #810541;
+    padding: 20px 10px 10px 20px;
+  }
+
+  button.color{
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+  }
+
+  .textarea{
+    display: none;
+  }
+  .picturearea{
+    display: none;
+
+  }
+  .pixels{
+    width: 50px;
+  }
+  .T-shirt-area{
+    display: block;
+    position: absolute;
+    top: 190px;
+    left:305px;
+    width: 250px;
+    height: 350px;
+    z-index: 100;
+
+  }
+  #text{
+    width: 220px;
+    font-size: 30px;
+    color:#000;
+    text-align: center;
+    margin:10px auto;
+    padding: 5px;
+  }
+  #picture{
+    background-color: #fff;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top:120px;
+    left: 25px;
+    background-repeat: no-repeat;
+}
+</style>
+<script type="text/javascript">
+//open addtext,addpicture
+$(document).ready(function(){
+	$(".beign").click(function(){
+		$(".button").show();
+		$(this).remove();
+	});
+    $("#addtext").click(function(){
+        $(".textarea").toggle();
+
+    });
+    $("#addpicture").click(function(){
+    	$(".picturearea").toggle();
+    });
+});
+//click ok addtext
+$(document).ready(function(){
+	$("#textok").click(function(){
+		$("#textvalue").text(function(){
+			return $("textarea").val();
+		});
+		$("#textvalue").css("color","#000");
+	});
+});
+$(document).ready(function(){
+	$(".color").click(function(){
+		var index = $(this).index();
+		$("#textvalue").css("color",function(){
+			return $(".color").eq(index-5).val();
+		});
+	});
+});
+$(document).ready(function(){
+	$(".colorbar").change(function(){
+		$("#textvalue").css("color",function(){
+			return $(".colorbar").val();
+		});
+	});
+});
+
+//click ok addpicture
+$(document).ready(function(){
+	$("#pictureok").click(function(){
+		var filename=$("#filepath").val().split('\\').pop().split('/').pop();
+    alert(filename);
+
+		var x = "url('" + filename  +"')";
+		$("#textvalue").text(function(){
+			return $("filepath").val();
+		});
+		$("#picture").css({
+			"background-image":x
+		});
+	});
+});
+//chang position
+$(document).ready(function(){
+	$(".pixels").change(function(){
+		var top = 130 + parseInt($("#top").val());
+		var left = 20 + parseInt($("#left").val());
+		$("#picture").css({
+			"top":top,
+			"left":left
+		});
+	});
+});
+</script>
+
+
+<body>
+	<div class="head">
+		<h1>Design your T-shirt</h1>
+		<h2>Choose your style</h2>
+	</div>
+	<div id="T-shirt">
+		<img src="T-shirt.jpg" name ="T-shirt" id="img-T-shirt" z-index="1"/>
+		<div class="T-shirt-area">
+			<div id="text"><span id="textvalue"></span></div>
+			<div id="picture"></div>
+		</div>
+	</div>
+	<div id="design">
+		<a href="#" class="beign">Begin to design ... </a>
+		<div class="button">
+			<button id="addtext">Add Text</button>
+			<button id="addpicture">Add Picture</button>
+		</div>
+		<div class="textarea">
+			<textarea id="text-fill"></textarea><br>
+			<button id="textok">OK</button><br>
+			<p>Basic color</p>
+			<button class="color" style="background-color:#f00" value="#f00" id="#f00" ></button>
+			<button class="color" style="background-color:#ff0" value="#ff0" id="#ff0" ></button>
+			<button class="color" style="background-color:#f60" value="#f60" id="#f60" ></button>
+			<button class="color" style="background-color:#f3f" value="#f3f" id="#f3f" ></button>
+			<button class="color" style="background-color:#00b" value="#00b" id="#00b" ></button>
+			<button class="color" style="background-color:#aaa" value="#aaa" id="#aaa" ></button>
+			<button class="color" style="background-color:#030" value="#030" id="#030" ></button>
+			<span>And more ...</span><br><br>
+			<input type="color" class="colorbar"/>
+
+		</div>
+		<div class="picturearea">
+			<p>Choose a file:</p>
+			<input type="file" name="img" id="filepath"><br>
+			<button id="pictureok">OK</button><br><br>
+			Top<input type="number" class="pixels" id="top" min="-50" max="50"><span> px</span><br><br>
+			Left<input type="number" class="pixels" id="left" min="-50" max="50"><span> px</span>
+		</div>
+	</div>
+</body>
+</html>
